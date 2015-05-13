@@ -1,0 +1,28 @@
+{
+  "name": "availability-calendar",
+  "main": "availability-calendar.js",
+  "version": "1.0.0",
+  "authors": [
+    "Nicola Peduzzi <thenikso@gmail.com>"
+  ],
+  "description": "Calendar widget used in Antlos.com to show and edit availabilities of a listing",
+  "keywords": [
+    "calendar"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4",
+    "moment": "~2.10.3"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.4",
+    "angular-scenario": "~1.4"
+  }
+}

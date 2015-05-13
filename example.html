@@ -1,0 +1,117 @@
+<html ng-app="example-app" ng-strict-di>
+<head>
+	<meta charset="UTF-8">
+	<title>availability-calendar examples</title>
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="availability-calendar.css">
+</head>
+<body>
+
+	<div ng-controller="example-ctrl as ctrl">
+
+		<!-- Full calendar -->
+		<availability-calendar
+			selectable-month
+			class="availability-calendar"
+			on-load="ctrl.refreshCalendar = $calendar.updateCalendar"
+			fetch-dates="ctrl.fetchCalendarDates($fromDate, $toDate)"
+			decorate-handlers="{
+				priceLabel: ctrl.calendarPriceLabelDecorator,
+				bookingLabel: ctrl.calendarBookingLabelDecorator
+			}"
+			decorate-date="ctrl.decorateCalendarDate($date, $fetchedData)"
+			on-date-click="ctrl.clickCalendarDate($event, $date, $decorations, $calendar)"
+			on-date-mouseenter="ctrl.enterCalendarDate($date, $decorations, $calendar)"></availability-calendar>
+
+	</div>
+
+	<script src="bower_components/moment/moment.js"></script>
+	<script src="bower_components/angular/angular.js"></script>
+	<script src="availability-calendar.js"></script>
+	<script>
+	angular
+		.module('example-app', ['availability-calendar'])
+		.config(['availabilityCalendarConfig', function (availabilityCalendarConfig) {
+			angular.extend(availabilityCalendarConfig, {
+				wrapperTemplate: '<div class="calendar"></div>',
+				prevButtonTemplate: '<a href="" class="calendar-prev-button" tabindex="-1"><i class="fa fa-chevron-left"></i></a>',
+				nextButtonTemplate: '<a href="" class="calendar-next-button" tabindex="-1"><i class="fa fa-chevron-right"></i></a>',
+				titleTemplate: '<div class="calendar-title"></div>',
+				calendarTableTemplate: '<table class="calendar-table" cellspacing="0" cellpadding="0"></table>',
+				calendarHeaderTemplate: '<thead class="calendar-header"></thead>',
+				calendarHeaderRowTemplate: '<tr class="calendar-week"></tr>',
+				calendarHeaderCellTemplate: '<th class="calendar-day"></th>',
+				calendarBodyTemplate: '<tbody class="calendar-body"></tbody>',
+				calendarBodyRowTemplate: '<tr class="calendar-week"></tr>',
+				calendarBodyCellTemplate: '<td class="calendar-day"></td>'
+			});
+		}])
+		.controller('example-ctrl', function ExampleCtrl () {
+			var ctrl = this;
+
+			ctrl.refreshCalendar = function () {
+				throw new Error('This will be initialized by the calendar component');
+			};
+			ctrl.fetchCalendarDates = fetchCalendarDates;
+			ctrl.decorateCalendarDate = decorateCalendarDate;
+			ctrl.clickCalendarDate = clickCalendarDate;
+			ctrl.enterCalendarDate = enterCalendarDate;
+			ctrl.calendarPriceLabelDecorator = calendarPriceLabelDecorator;
+			ctrl.calendarBookingLabelDecorator = calendarBookingLabelDecorator;
+
+			// This will be called when data for the given date period is needed
+			// The return of this function can be anything and any form of cacheing
+			// has to be handled manually in this method as well.
+			// The `decorate-date` attribute will receive `$fetchedData` with the
+			// result of this method.
+			function fetchCalendarDates ($fromDate, $toDate) {
+				var fromDate = moment($fromDate).startOf('month').toDate();
+				var toDate = moment($toDate).endOf('month').toDate();
+				return {
+					fromDate: fromDate,
+					toDate: toDate,
+					someOtherData: [],
+				};
+			}
+
+			// TODO: document meaning
+			function decorateCalendarDate ($date, $fetchResult) {
+				var decorations = {
+					'class': [],
+					available: false,
+				};
+				return decorations;
+			}
+
+			// TODO: document meaning
+			function clickCalendarDate ($event, $date, $decorations, $calendar) {
+				if ($decorations.disabled || $decorations.booking) {
+					return;
+				}
+				$event.preventDefault();
+				// TODO: try to implement a "select" decoration
+				// see $calendar.updateCalendar(from, to);
+			}
+
+			function enterCalendarDate ($date, $decorations, $calendar) {
+				if ($decorations.disabled) {
+					return;
+				}
+				// TODO: update "select" decoration
+			}
+
+			function calendarPriceLabelDecorator (val, el, date) {
+				if (val) {
+					el.append('<span class="priceLabel">' + val + '</span>');
+				}
+			}
+
+			function calendarBookingLabelDecorator (val, el, date) {
+				if (val) {
+					el.append('<a href="/somewhere/' + val + '" class="fa fa-info-circle" target="_blank"></a>');
+				}
+			}
+		});
+	</script>
+</body>
+</html>

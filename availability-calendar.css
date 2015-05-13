@@ -1,0 +1,207 @@
+.calendar {
+  margin: 0 0 1em;
+  width: 245px;
+  font-size: 0.9rem;
+  background: white;
+  padding: 3px;
+  border: 1px solid #E6E6E6;
+  position: absolute;
+  z-index: 800;
+}
+
+.calendar.fixed {
+  position: fixed;
+}
+
+.calendar-title {
+  text-align: center;
+  font-size: 1.2em;
+  margin: 0 2em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.calendar-title select {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: inherit;
+  font-weight: inherit;
+  height: auto;
+  line-height: inherit;
+  margin: 0;
+  padding: 0 0.3rem;
+  transition: color 0.2s ease;
+  width: auto;
+}
+
+.calendar-title select:hover {
+  color: #16B4B2;
+}
+
+.calendar-prev-button,
+.calendar-next-button {
+  border: 1px solid #E6E6E6;
+  background: white;
+  cursor: pointer;
+  margin: 0;
+  padding: 3px 5px;
+  color: #E6E6E6;
+  display: block;
+  width: 2em;
+  text-align: center;
+  padding: 0 0.5em;
+}
+
+.calendar-prev-button {
+  float: left;
+}
+
+.calendar-next-button {
+  float: right;
+}
+
+.calendar-table {
+  width: 100%;
+  background: white;
+  margin: 0;
+}
+
+.calendar-header .calendar-day {
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: middle;
+  font-size: 0.8em;
+}
+
+.calendar-body .calendar-week {
+  height: 35px;
+}
+
+.calendar-body .calendar-week:last-child .calendar-day {
+  border-bottom: 1px solid #E6E6E6;
+}
+
+.calendar-body .calendar-day {
+  transition: all 0.2s ease;
+  position: relative;
+  text-align: right;
+  border-left: 1px solid #E6E6E6;
+  border-top: 1px solid #E6E6E6;
+  overflow: hidden;
+  line-height: 1;
+  padding: 3px;
+  font-weight: bold;
+  background: #F6F6F6;
+  color: rgba(130, 142, 149, 0.3);
+  vertical-align: top;
+}
+
+.calendar-body .calendar-day:last-child {
+  border-right: 1px solid #E6E6E6;
+}
+
+.calendar-body .calendar-day.disabled {
+  cursor: default;
+  background-color: #E6E6E6;
+}
+
+.calendar-body .calendar-day.available {
+  color: #828E95;
+  background-color: #FFF;
+  cursor: pointer;
+}
+
+.calendar-body .calendar-day.selected {
+  background: #16B4B2;
+  color: white;
+}
+
+.calendar-body .calendar-day .priceLabelTooltip {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 5px;
+  width: auto;
+  pointer-events: none;
+}
+
+.calendar-body .calendar-day:hover {
+  overflow: visible;
+}
+
+.calendar-body .calendar-day:hover .priceLabelTooltip {
+  display: block;
+}
+
+.availability-calendar .calendar {
+  width: 100%;
+  font-size: 1rem;
+  border: none;
+  padding: 0;
+  position: relative;
+  z-index: 0;
+}
+
+.availability-calendar .calendar-body .calendar-week {
+  height: 75px;
+}
+
+.availability-calendar .calendar-body .calendar-day {
+  cursor: pointer;
+  color: #828E95;
+  height: 75px;
+}
+
+.availability-calendar .calendar-body .calendar-day.disabled {
+  color: rgba(130, 142, 149, 0.3);
+  cursor: default;
+}
+
+.availability-calendar .calendar-body .calendar-day.reserved {
+  background-color: #16B4B2;
+  color: white;
+  cursor: default;
+}
+
+.availability-calendar .calendar-body .calendar-day.selected {
+  border-top: 1px solid #16B4B2;
+  border-bottom: 1px solid #16B4B2;
+  background: inherit;
+  color: inherit;
+}
+
+.availability-calendar .calendar-body .calendar-day.selected.first-selected {
+  border-left: 1px solid #16B4B2;
+}
+
+.availability-calendar .calendar-body .calendar-day.selected.last-selected:last-child {
+  border-right: 1px solid #16B4B2;
+}
+
+.availability-calendar .calendar-body .calendar-day.selected.last-selected + .calendar-day {
+  border-left: 1px solid #16B4B2;
+}
+
+.availability-calendar .calendar-body .calendar-day .priceLabel {
+  display: block;
+  position: absolute;
+  bottom: 3px;
+  left: 3px;
+  text-align: left;
+  font-weight: 300;
+  font-size: 0.9em;
+  background: transparent;
+  color: inherit;
+}
+
+.availability-calendar .calendar-body .calendar-day .bookingLabel {
+  color: inherit;
+  position: absolute;
+  left: 3px;
+  top: 3px;
+}
